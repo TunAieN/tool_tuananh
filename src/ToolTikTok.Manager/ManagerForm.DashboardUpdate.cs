@@ -165,12 +165,12 @@ public sealed partial class ManagerForm
         var statistics = BuildDashboardStatistics();
         var updatePanel = BuildUpdatePanel();
         _dashboardGrid = BuildDashboardGrid();
-        var profileCard = BuildDashboardProfileCard(_dashboardGrid);
+        var operationsCard = BuildDashboardOperationsOverview();
         var actions = BuildDashboardActions();
 
         root.Controls.Add(statistics, 0, 0);
         root.Controls.Add(updatePanel, 0, 1);
-        root.Controls.Add(profileCard, 0, 2);
+        root.Controls.Add(operationsCard, 0, 2);
         root.Controls.Add(actions, 0, 3);
         page.Controls.Add(root);
         page.Resize += (_, _) =>
@@ -285,6 +285,67 @@ public sealed partial class ManagerForm
         last.Margin = Padding.Empty;
         row.Controls.Add(last, 4, 0);
         return row;
+    }
+
+    Control BuildDashboardOperationsOverview()
+    {
+        var card = new ModernCardPanel
+        {
+            Dock = DockStyle.Fill,
+            Margin = new Padding(0, 0, 0, 10),
+            Padding = new Padding(UiSpacing.Xl),
+            BorderColor = UiColors.Border,
+            CornerRadius = UiMetrics.CardRadius,
+            BackColor = UiColors.Surface
+        };
+        var heading = new Label
+        {
+            Text = "Tình hình vận hành",
+            Dock = DockStyle.Top,
+            Height = 34,
+            ForeColor = UiColors.Text,
+            Font = UiTypography.SectionTitle()
+        };
+        _dashboardSummary = new Label
+        {
+            Text = "Đang tổng hợp dữ liệu vận hành...",
+            Dock = DockStyle.Top,
+            Height = 34,
+            AutoEllipsis = true,
+            ForeColor = UiColors.TextMuted,
+            Font = UiTypography.Body()
+        };
+        var note = new Label
+        {
+            Text = "Danh sách và thao tác chi tiết được tập trung tại Không gian Hồ sơ.",
+            Dock = DockStyle.Top,
+            Height = 30,
+            ForeColor = UiColors.TextSubtle,
+            Font = UiTypography.Caption()
+        };
+        var commands = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Bottom,
+            Height = 54,
+            FlowDirection = FlowDirection.LeftToRight,
+            WrapContents = false,
+            BackColor = UiColors.Surface,
+            Padding = new Padding(0, UiSpacing.Sm, 0, 0)
+        };
+        var profiles = new Button { Text = $"{IconGlyphs.Profiles}  Mở không gian Hồ sơ", AutoSize = false, Size = new Size(210, 42) };
+        var messages = new Button { Text = $"{IconGlyphs.Messages}  Mở Tin nhắn", AutoSize = false, Size = new Size(160, 42) };
+        UiTheme.StyleButton(profiles, UiButtonKind.Primary);
+        UiTheme.StyleButton(messages, UiButtonKind.Neutral);
+        profiles.AutoSize = messages.AutoSize = false;
+        profiles.Click += (_, _) => ShowProfileManagementPage();
+        messages.Click += (_, _) => ShowTikTokMessageReplyDialog();
+        commands.Controls.Add(profiles);
+        commands.Controls.Add(messages);
+        card.Controls.Add(commands);
+        card.Controls.Add(note);
+        card.Controls.Add(_dashboardSummary);
+        card.Controls.Add(heading);
+        return card;
     }
 
     Control BuildDashboardProfileCard(DataGridView grid)

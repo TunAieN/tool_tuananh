@@ -6,22 +6,22 @@ namespace ToolTikTokV12.Controls;
 /// </summary>
 public static class ModernDialog
 {
-    public static readonly Color Canvas = Color.FromArgb(244, 247, 251);
-    static readonly Color BodyText = Color.FromArgb(24, 32, 47);
-    static readonly Color PrimaryBack = Color.FromArgb(79, 70, 229);
+    public static readonly Color Canvas = UiColors.Canvas;
+    static readonly Color BodyText = UiColors.Text;
+    static readonly Color PrimaryBack = UiColors.Primary;
     static readonly Color PrimaryText = Color.White;
-    static readonly Color PrimaryBorder = Color.FromArgb(79, 70, 229);
-    static readonly Color NeutralBack = Color.White;
-    static readonly Color NeutralText = Color.FromArgb(51, 65, 85);
-    static readonly Color NeutralBorder = Color.FromArgb(222, 228, 238);
-    static readonly Color DangerBack = Color.FromArgb(254, 242, 242);
-    static readonly Color DangerText = Color.FromArgb(220, 38, 38);
+    static readonly Color PrimaryBorder = UiColors.Primary;
+    static readonly Color NeutralBack = UiColors.Surface;
+    static readonly Color NeutralText = UiColors.Text;
+    static readonly Color NeutralBorder = UiColors.Border;
+    static readonly Color DangerBack = UiColors.DangerSoft;
+    static readonly Color DangerText = UiColors.Danger;
     static readonly Color DangerBorder = Color.FromArgb(254, 202, 202);
 
     public static void Apply(Form form, bool fixedDialog = true)
     {
         form.AutoScaleMode = AutoScaleMode.Dpi;
-        form.Font = new Font("Segoe UI", 9.5F);
+        form.Font = UiTypography.Body();
         form.BackColor = Canvas;
         form.ForeColor = BodyText;
         form.StartPosition = FormStartPosition.CenterParent;
@@ -51,13 +51,13 @@ public static class ModernDialog
 
     public static void StylePrimaryLabel(Label label)
     {
-        label.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        label.Font = UiTypography.BodyStrong();
         label.ForeColor = BodyText;
     }
 
     public static void StyleTextInput(TextBox input)
     {
-        input.Font = new Font("Segoe UI", 11F);
+        input.Font = UiTypography.SectionTitle();
         input.BackColor = Color.White;
         input.ForeColor = BodyText;
         input.BorderStyle = BorderStyle.FixedSingle;
@@ -67,7 +67,7 @@ public static class ModernDialog
 
     public static void StyleSelectionInput(ComboBox input)
     {
-        input.Font = new Font("Segoe UI", 11F);
+        input.Font = UiTypography.SectionTitle();
         input.BackColor = Color.White;
         input.ForeColor = BodyText;
         input.FlatStyle = FlatStyle.Flat;
@@ -76,7 +76,7 @@ public static class ModernDialog
 
     public static void StyleSelectionList(ListBox list)
     {
-        list.Font = new Font("Segoe UI", 11F);
+        list.Font = UiTypography.SectionTitle();
         list.BackColor = Color.White;
         list.ForeColor = BodyText;
         list.BorderStyle = BorderStyle.FixedSingle;

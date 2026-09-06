@@ -128,6 +128,8 @@ public sealed partial class ManagerForm : Form
     Label? _workspaceTitle;
     Label? _workspaceSubtitle;
     Label? _workspaceIcon;
+    readonly Dictionary<string, Button> _navigationButtons = new(StringComparer.OrdinalIgnoreCase);
+    string _activeNavigationKey = "profiles";
     readonly AddTabMarker _addMarker = new();
     static readonly Color ActiveProfileColor = UiTheme.Primary;
     static readonly Color InactiveTabColor = Color.FromArgb(248, 250, 252);
@@ -188,7 +190,7 @@ public sealed partial class ManagerForm : Form
             Padding = Padding.Empty,
             BackColor = UiTheme.Canvas
         };
-        shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 272F));
+        shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, UiMetrics.SidebarWidth));
         shell.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
         shell.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         var sidebar = new Panel
@@ -231,8 +233,8 @@ public sealed partial class ManagerForm : Form
         {
             Text = $"V{AppVersionInfo.Current}",
             AutoSize = false,
-            Size = new Size(64, 22),
-            Location = new Point(154, 47),
+            Size = new Size(60, 22),
+            Location = new Point(148, 47),
             TextAlign = ContentAlignment.MiddleCenter,
             BackColor = Color.FromArgb(79, 70, 229),
             ForeColor = Color.White,
@@ -256,53 +258,55 @@ public sealed partial class ManagerForm : Form
             Text = text.ToUpperInvariant(),
             AutoSize = false,
             Width = 202,
-            Height = 30,
-            Padding = new Padding(8, 10, 0, 0),
-            Margin = new Padding(0, 8, 0, 2),
+            Height = 26,
+            Padding = new Padding(8, 6, 0, 0),
+            Margin = new Padding(0, 4, 0, 1),
             ForeColor = Color.FromArgb(100, 116, 139),
             Font = new Font("Segoe UI Semibold", 8F, FontStyle.Bold)
         };
 
-        Button NavButton(string text, EventHandler action, UiButtonKind kind = UiButtonKind.Neutral)
+        Button NavButton(string key, string text, EventHandler action)
         {
-            var button = Button(text, action, kind);
+            var button = Button(text, (sender, e) =>
+            {
+                SetActiveNavigation(key);
+                action(sender, e);
+            }, UiButtonKind.Neutral);
             button.AutoSize = false;
             button.Width = 202;
-            button.Height = 44;
-            button.Margin = new Padding(0, 2, 0, 2);
+            button.Height = 40;
+            button.Margin = new Padding(0, 1, 0, 1);
             button.Padding = new Padding(9, 0, 5, 0);
             button.TextAlign = ContentAlignment.MiddleLeft;
             button.TabStop = false;
             button.FlatAppearance.BorderSize = 0;
-            button.BackColor = kind == UiButtonKind.Primary ? UiTheme.Primary : UiTheme.Sidebar;
-            button.ForeColor = kind == UiButtonKind.Danger ? Color.FromArgb(252, 165, 165) : Color.FromArgb(226, 232, 240);
-            button.FlatAppearance.MouseOverBackColor = kind == UiButtonKind.Danger
-                ? Color.FromArgb(69, 26, 33)
-                : kind == UiButtonKind.Primary ? UiTheme.PrimaryHover : Color.FromArgb(31, 41, 55);
+            button.BackColor = UiTheme.Sidebar;
+            button.ForeColor = Color.FromArgb(226, 232, 240);
+            button.FlatAppearance.MouseOverBackColor = UiColors.SidebarHover;
             button.FlatAppearance.MouseDownBackColor = Color.FromArgb(49, 46, 129);
             button.Font = new Font("Segoe UI Semibold", 8.75F);
+            button.Tag = key;
+            _navigationButtons[key] = button;
             return button;
         }
 
         nav.Controls.Add(Section("Tổng quan"));
-        nav.Controls.Add(NavButton("⌂  Tổng quan", (_, _) =>
+        nav.Controls.Add(NavButton("overview", $"{IconGlyphs.Overview}  Tổng quan", (_, _) =>
         {
             if (_dashboardTab is not null) SelectTabPageSafely(_dashboardTab);
         }));
         nav.Controls.Add(Section("Vận hành"));
-        nav.Controls.Add(NavButton("▰  Hồ sơ", (_, _) => ShowProfileManagementPage(), UiButtonKind.Primary));
-        nav.Controls.Add(NavButton("✉  Trả lời tin nhắn", (_, _) => ShowTikTokMessageReplyDialog()));
-        nav.Controls.Add(NavButton("▣  Theo dõi cửa sổ", (_, _) => ShowChromeMonitor()));
-        nav.Controls.Add(Section("Quản lý"));
-        nav.Controls.Add(NavButton("◫  Tài khoản", (_, _) => ShowAccountPoolDialog()));
-        nav.Controls.Add(NavButton("◉  Cập nhật hồ sơ", (_, _) => ShowTikTokIdentityDialog()));
-        nav.Controls.Add(NavButton("↻  Đồng bộ dữ liệu", (_, _) => ShowChromeNameSyncDialog()));
+        nav.Controls.Add(NavButton("profiles", $"{IconGlyphs.Profiles}  Hồ sơ", (_, _) => ShowProfileManagementPage()));
+        nav.Controls.Add(NavButton("messages", $"{IconGlyphs.Messages}  Tin nhắn", (_, _) => ShowTikTokMessageReplyDialog()));
+        nav.Controls.Add(NavButton("monitor", $"{IconGlyphs.Monitor}  Giám sát Chrome", (_, _) => ShowChromeMonitor()));
+        nav.Controls.Add(Section("Dữ liệu"));
+        nav.Controls.Add(NavButton("accounts", $"{IconGlyphs.Accounts}  Tài khoản", (_, _) => ShowAccountPoolDialog()));
         nav.Controls.Add(Section("Hệ thống"));
-        nav.Controls.Add(NavButton("◇  Thiết lập", (_, _) => ShowDefaultConfigDialog()));
-        nav.Controls.Add(NavButton("☷  Nhật ký", (_, _) => ShowAutoActivityLogDialog(this)));
+        nav.Controls.Add(NavButton("logs", $"{IconGlyphs.Logs}  Nhật ký", (_, _) => ShowAutoActivityLogDialog(this)));
+        nav.Controls.Add(NavButton("settings", $"{IconGlyphs.Settings}  Thiết lập", (_, _) => ShowDefaultConfigDialog()));
         nav.Layout += (_, _) =>
         {
-            nav.AutoScrollMinSize = new Size(0, 610);
+            nav.AutoScrollMinSize = Size.Empty;
             nav.HorizontalScroll.Maximum = 0;
             nav.HorizontalScroll.Visible = false;
             var availableWidth = Math.Max(180, nav.ClientSize.Width - 6);
@@ -361,14 +365,14 @@ public sealed partial class ManagerForm : Form
         {
             Dock = DockStyle.Fill,
             Padding = new Padding(20),
-            StartColor = Color.FromArgb(248, 250, 252),
-            EndColor = Color.FromArgb(238, 242, 255),
+            StartColor = UiColors.Canvas,
+            EndColor = UiColors.Canvas,
             Angle = 118F
         };
         var workspaceHeader = new TableLayoutPanel
         {
             Dock = DockStyle.Top,
-            Height = 86,
+            Height = UiMetrics.HeaderHeight,
             ColumnCount = 2,
             RowCount = 1,
             Margin = Padding.Empty,
@@ -412,7 +416,7 @@ public sealed partial class ManagerForm : Form
         var headerActions = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            ColumnCount = 5,
+            ColumnCount = 4,
             RowCount = 1,
             Padding = new Padding(6, 6, 0, 8),
             Margin = Padding.Empty,
@@ -421,7 +425,6 @@ public sealed partial class ManagerForm : Form
         headerActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
         headerActions.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 46F));
         headerActions.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-        headerActions.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 96F));
         headerActions.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 168F));
         headerActions.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         var health = new Label
@@ -448,15 +451,6 @@ public sealed partial class ManagerForm : Form
         settings.Font = new Font("Segoe UI Symbol", 13F, FontStyle.Bold);
         settings.Click += (_, _) => ShowDefaultConfigDialog();
         _managerToolTip.SetToolTip(settings, "Mở thiết lập mặc định.");
-        var version = new Label
-        {
-            Text = $"Phiên bản{Environment.NewLine}V{AppVersionInfo.Current}",
-            Dock = DockStyle.Fill,
-            Margin = new Padding(0, 0, 8, 0),
-            TextAlign = ContentAlignment.MiddleCenter,
-            ForeColor = UiTheme.TextPrimary,
-            Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold)
-        };
         var checkUpdate = new Button
         {
             Text = "↻  Kiểm tra cập nhật",
@@ -470,8 +464,7 @@ public sealed partial class ManagerForm : Form
         checkUpdate.Click += async (_, _) => await CheckForUpdatesAsync(showWhenCurrent: true);
         headerActions.Controls.Add(settings, 1, 0);
         headerActions.Controls.Add(health, 2, 0);
-        headerActions.Controls.Add(version, 3, 0);
-        headerActions.Controls.Add(checkUpdate, 4, 0);
+        headerActions.Controls.Add(checkUpdate, 3, 0);
         workspaceHeader.Controls.Add(welcome, 0, 0);
         workspaceHeader.Controls.Add(headerActions, 1, 0);
 
@@ -497,7 +490,21 @@ public sealed partial class ManagerForm : Form
             UpdateWorkspaceHeaderPresentation();
         };
         Controls.Add(shell);
+        SetActiveNavigation(_activeNavigationKey);
         UiTheme.Apply(this);
+    }
+
+    void SetActiveNavigation(string key)
+    {
+        _activeNavigationKey = key;
+        foreach (var (navigationKey, button) in _navigationButtons)
+        {
+            if (button.IsDisposed) continue;
+            var active = string.Equals(navigationKey, key, StringComparison.OrdinalIgnoreCase);
+            button.BackColor = active ? UiColors.Primary : UiColors.Sidebar;
+            button.ForeColor = active ? Color.White : Color.FromArgb(226, 232, 240);
+            button.FlatAppearance.MouseOverBackColor = active ? UiColors.PrimaryHover : UiColors.SidebarHover;
+        }
     }
 
     Button Button(string text, EventHandler action, UiButtonKind kind = UiButtonKind.Neutral)
@@ -705,6 +712,17 @@ public sealed partial class ManagerForm : Form
             var page = _tabs.TabPages[i];
             if (IsAddTab(page) || !GetCloseRect(rect).Contains(e.Location)) return;
             if (page.Tag is ProfileContext ctx) _ = CloseProfileAsync(ctx);
+            else if (page.Tag is WorkspacePageMarker)
+            {
+                var hostedForm = page.Controls.OfType<Form>().FirstOrDefault();
+                if (hostedForm is not null && !hostedForm.IsDisposed) hostedForm.Close();
+                else
+                {
+                    _tabs.TabPages.Remove(page);
+                    page.Dispose();
+                    ShowProfileManagementPage();
+                }
+            }
             return;
         }
     }
@@ -1726,8 +1744,9 @@ public sealed partial class ManagerForm : Form
 
     void ShowDefaultConfigDialog()
     {
+        if (TryActivateWorkspacePage("settings", "settings")) return;
         var catalog = _profileService.Load();
-        using var form = new Form
+        var form = new Form
         {
             Text = $"Cấu hình mặc định — {AppVersionInfo.Display}",
             Width = 680,
@@ -1991,7 +2010,9 @@ public sealed partial class ManagerForm : Form
         form.Controls.Add(footer);
         form.CancelButton = close;
         RefreshStatus();
-        form.ShowDialog(this);
+        ShowWorkspacePage(form, "settings", "Thiết lập",
+            "Quản lý cấu hình mặc định, sao lưu và nguồn cập nhật.",
+            IconGlyphs.Settings, "settings");
     }
 
     void BackupManagerDefaultConfig()
@@ -2365,7 +2386,8 @@ public sealed partial class ManagerForm : Form
 
     void ShowAccountPoolDialog()
     {
-        using var form = new Form
+        if (TryActivateWorkspacePage("accounts", "accounts")) return;
+        var form = new Form
         {
             Text = $"Kho tài khoản TikTok — {AppVersionInfo.Display}",
             Width = 1240,
@@ -3114,7 +3136,9 @@ public sealed partial class ManagerForm : Form
             RefreshGrid();
             autoRefreshTimer.Start();
         };
-        form.ShowDialog(this);
+        ShowWorkspacePage(form, "accounts", "Tài khoản",
+            "Quản lý kho tài khoản TikTok và trạng thái phân bổ cho hồ sơ.",
+            IconGlyphs.Accounts, "accounts");
     }
 
     TikTokAccountPoolItem? ShowAccountPoolItemEditor(IWin32Window owner, TikTokAccountPoolItem? current, int sourceRow)

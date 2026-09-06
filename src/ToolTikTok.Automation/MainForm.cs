@@ -242,15 +242,15 @@ public sealed partial class MainForm : Form
         var actions = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.LeftToRight, WrapContents = true, Margin = new Padding(0) };
         ConfigureRunControlButton(_runStopButton, async (_, _) => await HandleStartStopAsync());
         ConfigureRunControlButton(_pauseResumeButton, (_, _) => HandlePauseResume());
-        var save = Btn("💾 Lưu thiết lập", (_, _) => SaveFromUi());
-        var more = Btn("⋯  Thêm", (_, _) => { });
-        var moreMenu = new ContextMenuStrip();
+        var save = Btn("Lưu thiết lập", (_, _) => SaveFromUi());
+        var more = Btn($"{IconGlyphs.More}  Tùy chọn", (_, _) => { });
+        var moreMenu = new ContextMenuStrip { Font = UiTypography.Body(), ShowImageMargin = false };
         moreMenu.Items.Add("Nhập cấu hình", null, async (_, _) => await ImportConfigAsync());
         moreMenu.Items.Add("Xuất cấu hình", null, async (_, _) => await ExportConfigAsync());
         more.Click += (_, _) => moreMenu.Show(more, new Point(0, more.Height));
         actions.Controls.AddRange([_runStopButton, _pauseResumeButton, save, more]);
 
-        var status = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 4, Margin = new Padding(10, 0, 0, 0), Padding = new Padding(8), BackColor = Color.FromArgb(248, 250, 252) };
+        var status = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 4, Margin = new Padding(10, 0, 0, 0), Padding = new Padding(8), BackColor = UiColors.SurfaceMuted };
         status.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         status.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         for (var row = 0; row < 4; row++) status.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
