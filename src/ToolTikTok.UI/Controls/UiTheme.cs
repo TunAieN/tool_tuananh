@@ -25,7 +25,7 @@ public sealed class ModernGradientPanel : Panel
 }
 
 /// <summary>Rounded, softly bordered surface for dashboard sections and statistic cards.</summary>
-public sealed class ModernCardPanel : Panel
+public class ModernCardPanel : Panel
 {
     public int CornerRadius { get; set; } = 14;
     public Color BorderColor { get; set; } = Color.FromArgb(226, 232, 240);
@@ -183,20 +183,21 @@ public sealed class ModernActionCard : Control
 /// <summary>Small native WinForms theme shared by Manager and profile tabs; no owner draw or animation.</summary>
 public static class UiTheme
 {
-    public static readonly Color Canvas = Color.FromArgb(245, 247, 251);
-    public static readonly Color Card = Color.White;
-    public static readonly Color Border = Color.FromArgb(229, 234, 242);
-    public static readonly Color Primary = Color.FromArgb(79, 70, 229);
-    public static readonly Color PrimaryHover = Color.FromArgb(67, 56, 202);
-    public static readonly Color PrimarySoft = Color.FromArgb(238, 242, 255);
-    public static readonly Color TextPrimary = Color.FromArgb(15, 23, 42);
-    public static readonly Color TextSecondary = Color.FromArgb(100, 116, 139);
-    public static readonly Color Sidebar = Color.FromArgb(15, 23, 42);
-    public static readonly Color Success = Color.FromArgb(22, 163, 74);
-    public static readonly Color Warning = Color.FromArgb(245, 158, 11);
-    public static readonly Color Danger = Color.FromArgb(239, 68, 68);
-    public static readonly Color Purple = Color.FromArgb(168, 85, 247);
-    public static readonly Color Cyan = Color.FromArgb(14, 165, 233);
+    // Compatibility aliases. New UI code should use the semantic token classes.
+    public static readonly Color Canvas = UiColors.Canvas;
+    public static readonly Color Card = UiColors.Surface;
+    public static readonly Color Border = UiColors.Border;
+    public static readonly Color Primary = UiColors.Primary;
+    public static readonly Color PrimaryHover = UiColors.PrimaryHover;
+    public static readonly Color PrimarySoft = UiColors.PrimarySoft;
+    public static readonly Color TextPrimary = UiColors.Text;
+    public static readonly Color TextSecondary = UiColors.TextMuted;
+    public static readonly Color Sidebar = UiColors.Sidebar;
+    public static readonly Color Success = UiColors.Success;
+    public static readonly Color Warning = UiColors.Warning;
+    public static readonly Color Danger = UiColors.Danger;
+    public static readonly Color Purple = UiColors.Purple;
+    public static readonly Color Cyan = UiColors.Cyan;
 
     public static void Apply(Control root)
     {
@@ -204,7 +205,7 @@ public static class UiTheme
         // tiêu đề, KPI hay nút khi duyệt cây control.
         if (root is Form or UserControl)
         {
-            root.Font = new Font("Segoe UI", 9.5F);
+            root.Font = UiTypography.Body();
             root.BackColor = Canvas;
         }
         foreach (Control child in root.Controls)
@@ -213,7 +214,7 @@ public static class UiTheme
             {
                 group.BackColor = Card;
                 group.ForeColor = TextPrimary;
-                group.Font = new Font("Segoe UI Semibold", 9.5F);
+                group.Font = UiTypography.BodyStrong();
                 group.Padding = new Padding(Math.Max(12, group.Padding.Left), 12, Math.Max(12, group.Padding.Right), Math.Max(12, group.Padding.Bottom));
             }
             else if (child is TabPage page) page.BackColor = Canvas;
@@ -250,21 +251,21 @@ public static class UiTheme
     public static void StyleButton(Button button, UiButtonKind kind = UiButtonKind.Neutral)
     {
         button.AutoSize = true;
-        button.Height = Math.Max(40, button.Height);
+        button.Height = Math.Max(UiMetrics.ButtonHeight, button.Height);
         button.FlatStyle = FlatStyle.Flat;
         button.FlatAppearance.BorderSize = 1;
         button.UseVisualStyleBackColor = false;
         button.Cursor = Cursors.Hand;
         button.Padding = new Padding(11, 0, 11, 0);
         button.Margin = new Padding(4, 3, 4, 3);
-        button.Font = new Font("Segoe UI Semibold", 9.5F);
+        button.Font = UiTypography.BodyStrong();
         var (back, fore, border) = kind switch
         {
             UiButtonKind.Primary => (Primary, Color.White, Primary),
             UiButtonKind.Success => (Success, Color.White, Success),
             UiButtonKind.Warning => (Color.FromArgb(255, 247, 237), Color.FromArgb(194, 65, 12), Color.FromArgb(254, 215, 170)),
             UiButtonKind.Danger => (Color.FromArgb(254, 242, 242), Danger, Color.FromArgb(254, 202, 202)),
-            UiButtonKind.Ghost => (Color.Transparent, TextSecondary, Color.Transparent),
+            UiButtonKind.Ghost => (Card, TextSecondary, Border),
             _ => (Card, TextPrimary, Border)
         };
         button.BackColor = back;
@@ -288,7 +289,7 @@ public static class UiTheme
             UiButtonKind.Ghost => Color.FromArgb(226, 232, 240),
             _ => Color.FromArgb(241, 245, 249)
         };
-        ApplyRoundedCorners(button, 10);
+        ApplyRoundedCorners(button, UiMetrics.ControlRadius);
     }
 
     public static void StyleToggle(CheckBox toggle)
@@ -300,7 +301,7 @@ public static class UiTheme
         toggle.FlatAppearance.BorderSize = 1;
         toggle.TextAlign = ContentAlignment.MiddleCenter;
         toggle.Cursor = Cursors.Hand;
-        toggle.Font = new Font("Segoe UI Semibold", 8.5F);
+        toggle.Font = UiTypography.Caption(FontStyle.Bold);
         toggle.Padding = new Padding(8, 0, 8, 0);
 
         void RefreshVisual()
@@ -347,10 +348,10 @@ public static class UiTheme
         grid.GridColor = Color.FromArgb(235, 239, 245);
         grid.EnableHeadersVisualStyles = false;
         grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-        grid.ColumnHeadersHeight = Math.Max(44, grid.ColumnHeadersHeight);
+        grid.ColumnHeadersHeight = Math.Max(UiMetrics.GridHeaderHeight, grid.ColumnHeadersHeight);
         grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252);
         grid.ColumnHeadersDefaultCellStyle.ForeColor = TextSecondary;
-        grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 9F);
+        grid.ColumnHeadersDefaultCellStyle.Font = UiTypography.BodyStrong();
         grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(248, 250, 252);
         grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = TextSecondary;
         grid.DefaultCellStyle.BackColor = Card;
@@ -358,7 +359,7 @@ public static class UiTheme
         grid.DefaultCellStyle.SelectionBackColor = PrimarySoft;
         grid.DefaultCellStyle.SelectionForeColor = Color.FromArgb(49, 46, 129);
         grid.DefaultCellStyle.Padding = new Padding(5, 2, 5, 2);
-        grid.RowTemplate.Height = Math.Max(48, grid.RowTemplate.Height);
+        grid.RowTemplate.Height = Math.Max(UiMetrics.GridRowHeight, grid.RowTemplate.Height);
         grid.RowHeadersVisible = false;
     }
 }

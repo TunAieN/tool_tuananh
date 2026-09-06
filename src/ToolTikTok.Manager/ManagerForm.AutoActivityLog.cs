@@ -450,6 +450,7 @@ public sealed partial class ManagerForm
 
     void ShowAutoActivityLogDialog(IWin32Window? owner = null)
     {
+        if (TryActivateWorkspacePage("logs", "logs")) return;
         var form = new Form
         {
             Text = $"Nhật ký Tự động & Tự bù — {AppVersionInfo.Display}",
@@ -768,9 +769,8 @@ public sealed partial class ManagerForm
             await ReloadAsync();
         };
 
-        if (owner is null)
-            form.ShowDialog(this);
-        else
-            form.ShowDialog(owner);
+        ShowWorkspacePage(form, "logs", "Nhật ký",
+            "Theo dõi hoạt động tự động, kết quả và thông tin chẩn đoán.",
+            IconGlyphs.Logs, "logs");
     }
 }

@@ -241,6 +241,7 @@ public sealed partial class ManagerForm
 
     void ShowTikTokIdentityDialog()
     {
+        if (TryActivateWorkspacePage("profile-identity", "profiles")) return;
         const string gridName = "TikTokIdentityGrid";
         const string useColumn = "Use";
         const string profileColumn = "Profile";
@@ -254,7 +255,7 @@ public sealed partial class ManagerForm
         var updateResults = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         var contexts = _contexts.Values.OrderBy(x => x.Profile.Name, NaturalProfileNameOrder).ToList();
 
-        using var form = new Form
+        var form = new Form
         {
             Text = "Đổi tên & ảnh đại diện TikTok",
             Width = 1120,
@@ -870,8 +871,10 @@ public sealed partial class ManagerForm
             SaveIdentityToolState(state);
             DisposePreviewImage();
         };
-        form.Shown += (_, _) => { ModernDialog.FitToWorkingArea(form); RebuildPreview(); };
-        form.ShowDialog(this);
+        form.Shown += (_, _) => RebuildPreview();
+        ShowWorkspacePage(form, "profile-identity", "Cập nhật thông tin TikTok",
+            "Cập nhật tên hiển thị, ảnh đại diện và tiểu sử theo từng hồ sơ.",
+            IconGlyphs.Profiles, "profiles");
     }
 
     async Task<IdentityUpdateReply> UpdateTikTokIdentityAsync(

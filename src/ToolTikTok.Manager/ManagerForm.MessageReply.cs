@@ -211,6 +211,7 @@ public sealed partial class ManagerForm
 
     void ShowTikTokMessageReplyDialog()
     {
+        if (TryActivateWorkspacePage("messages", "messages")) return;
         const string profileColumn = "Profile";
         const string accountColumn = "Account";
         const string resultColumn = "Result";
@@ -231,7 +232,7 @@ public sealed partial class ManagerForm
         {
             selectedProfiles.Add(initiallySelected.Profile.Name);
         }
-        using var form = new Form
+        var form = new Form
         {
             Text = "Tin nhắn TikTok",
             Width = 1040,
@@ -1246,8 +1247,9 @@ public sealed partial class ManagerForm
             _messageReplyAutoNoteChanged -= HandleAutoNoteChanged;
             SaveUiState();
         };
-        form.Shown += (_, _) => ModernDialog.FitToWorkingArea(form);
-        form.ShowDialog(this);
+        ShowWorkspacePage(form, "messages", "Tin nhắn",
+            "Soạn, tự động trả lời và theo dõi trạng thái xử lý tin nhắn.",
+            IconGlyphs.Messages, "messages");
     }
 
     void InitializeMessageReplyAutoFlow()

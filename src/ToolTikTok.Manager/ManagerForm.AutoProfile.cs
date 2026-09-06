@@ -40,7 +40,8 @@ public sealed partial class ManagerForm
     {
         if (_autoProfileDialog is not null && !_autoProfileDialog.IsDisposed)
         {
-            try { _autoProfileDialog.Activate(); } catch { }
+            if (!TryActivateWorkspacePage("profile-auto-create", "profiles"))
+                try { _autoProfileDialog.Activate(); } catch { }
             return;
         }
 
@@ -553,8 +554,9 @@ public sealed partial class ManagerForm
                 "Tạo profile tự động", MessageBoxIcon.Information);
         };
         form.FormClosed += (_, _) => _autoProfileDialog = null;
-        form.Shown += (_, _) => ModernDialog.FitToWorkingArea(form);
-        form.ShowDialog(this);
+        ShowWorkspacePage(form, "profile-auto-create", "Tạo hồ sơ tự động",
+            "Nhập dữ liệu, theo dõi hàng đợi và xử lý hồ sơ trong một không gian làm việc.",
+            IconGlyphs.Profiles, "profiles");
     }
 
     List<AutoProfileQueueItem> BuildAutoProfileQueue(int requestedNew, string requestedStartName, bool resumeIncomplete, bool retryPaused)

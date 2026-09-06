@@ -17,9 +17,13 @@ public sealed partial class ManagerForm
     Label? _profileSelectionLabel;
     Label? _profileFooterStatus;
     Label? _profileFooterSummary;
+    Panel? _profileEmptyState;
+    Label? _profileEmptyStateTitle;
+    Label? _profileEmptyStateDetail;
 
     void ShowProfileManagementPage()
     {
+        SetActiveNavigation("profiles");
         EnsureProfileManagementPage();
         RefreshProfileManagementPage();
         if (_profileManagementTab is not null) SelectTabPageSafely(_profileManagementTab);
@@ -65,62 +69,17 @@ public sealed partial class ManagerForm
         var row = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 4, RowCount = 1, BackColor = UiTheme.Canvas };
         for (var i = 0; i < 4; i++) row.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
 
-        ModernCardPanel Card(string glyph, string caption, Color accent, Color tint, out Label value)
+        UiMetricCard Card(string glyph, string caption, Color accent, Color tint, out Label value)
         {
-            var card = new ModernCardPanel
-            {
-                Dock = DockStyle.Fill,
-                Margin = new Padding(0, 4, 12, 8),
-                Padding = new Padding(14),
-                CornerRadius = 15,
-                BorderColor = UiTheme.Border,
-                GradientStart = tint,
-                GradientEnd = Color.White
-            };
-            var tile = new Label
-            {
-                Text = glyph,
-                AutoSize = false,
-                Size = new Size(48, 48),
-                Location = new Point(14, 20),
-                TextAlign = ContentAlignment.MiddleCenter,
-                BackColor = tint,
-                ForeColor = accent,
-                Font = new Font("Segoe UI Symbol", 18F, FontStyle.Bold)
-            };
-            UiTheme.ApplyRoundedCorners(tile, 12);
-            value = new Label
-            {
-                Text = "0",
-                AutoSize = false,
-                Location = new Point(78, 16),
-                Size = new Size(120, 34),
-                ForeColor = UiTheme.TextPrimary,
-                BackColor = Color.Transparent,
-                Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold)
-            };
-            var text = new Label
-            {
-                Text = caption,
-                AutoSize = false,
-                Location = new Point(78, 52),
-                Size = new Size(160, 24),
-                ForeColor = UiTheme.TextSecondary,
-                BackColor = Color.Transparent,
-                Font = new Font("Segoe UI", 9F)
-            };
-            card.Controls.Add(tile);
-            card.Controls.Add(value);
-            card.Controls.Add(text);
-            var valueLabel = value;
-            card.Resize += (_, _) => { valueLabel.Width = text.Width = Math.Max(70, card.ClientSize.Width - 90); };
+            var card = new UiMetricCard(glyph, caption, accent, tint);
+            value = card.ValueLabel;
             return card;
         }
 
-        row.Controls.Add(Card("▰", "Tổng số profile", UiTheme.Primary, UiTheme.PrimarySoft, out _profileTotalValue), 0, 0);
-        row.Controls.Add(Card("▶", "Đang chạy", UiTheme.Success, Color.FromArgb(220, 252, 231), out _profileRunningValue), 1, 0);
-        row.Controls.Add(Card("Ⅱ", "Tạm dừng", UiTheme.Warning, Color.FromArgb(254, 249, 195), out _profilePausedValue), 2, 0);
-        var stopped = Card("■", "Đã dừng", Color.FromArgb(71, 85, 105), Color.FromArgb(241, 245, 249), out _profileStoppedValue);
+        row.Controls.Add(Card(IconGlyphs.Profiles, "Tổng số profile", UiTheme.Primary, UiTheme.PrimarySoft, out _profileTotalValue), 0, 0);
+        row.Controls.Add(Card(IconGlyphs.Open, "Đang chạy", UiTheme.Success, UiColors.SuccessSoft, out _profileRunningValue), 1, 0);
+        row.Controls.Add(Card(IconGlyphs.Pause, "Tạm dừng", UiTheme.Warning, UiColors.WarningSoft, out _profilePausedValue), 2, 0);
+        var stopped = Card(IconGlyphs.Stop, "Đã dừng", Color.FromArgb(71, 85, 105), UiColors.SurfaceHover, out _profileStoppedValue);
         stopped.Margin = new Padding(0, 4, 0, 8);
         row.Controls.Add(stopped, 3, 0);
         return row;
@@ -169,10 +128,17 @@ public sealed partial class ManagerForm
             return button;
         }
 
-        var refresh = Action("↻", UiButtonKind.Neutral, (_, _) => RefreshProfileManagementPage(forceAccounts: true));
-        var open = Action("▶  Mở profile", UiButtonKind.Success, (_, _) => OpenSelectedProfilesFromManagement());
-        var import = Action("↑  Nhập từ Excel", UiButtonKind.Neutral, (_, _) => ShowAutoProfileDialog());
-        var add = Action("＋  Thêm hồ sơ", UiButtonKind.Primary, (_, _) => AddProfile());
+        var refresh = Action(IconGlyphs.Refresh, UiButtonKind.Neutral, (_, _) => RefreshProfileManagementPage(forceAccounts: true));
+        var open = Action($"{IconGlyphs.Open}  Mở profile", UiButtonKind.Success, (_, _) => OpenSelectedProfilesFromManagement());
+        var import = Action($"{IconGlyphs.Import}  Nhập từ Excel", UiButtonKind.Neutral, (_, _) => ShowAutoProfileDialog());
+        var add = Action($"{IconGlyphs.Add}  Thêm hồ sơ", UiButtonKind.Primary, (_, _) => AddProfile());
+        var more = Action(IconGlyphs.More, UiButtonKind.Neutral, (_, _) => { });
+        var profileMenu = new ContextMenuStrip { Font = UiTypography.Body(), ShowImageMargin = false };
+        profileMenu.Items.Add("Tạo hồ sơ tự động", null, (_, _) => ShowAutoProfileDialog());
+        profileMenu.Items.Add("Cập nhật thông tin TikTok", null, (_, _) => ShowTikTokIdentityDialog());
+        profileMenu.Items.Add("Đồng bộ tên với Chrome", null, (_, _) => ShowChromeNameSyncDialog());
+        more.Click += (_, _) => profileMenu.Show(more, new Point(0, more.Height));
+        _managerToolTip.SetToolTip(more, "Mở các công cụ nâng cao cho hồ sơ.");
         _managerToolTip.SetToolTip(refresh, "Làm mới danh sách hồ sơ.");
 
         refresh.Dock = DockStyle.None;
@@ -183,9 +149,10 @@ public sealed partial class ManagerForm
         toolbar.Controls.Add(_profileManagementFilter, 5, 0); toolbar.SetColumnSpan(_profileManagementFilter, 3);
         toolbar.Controls.Add(_profileManagementSort, 8, 0); toolbar.SetColumnSpan(_profileManagementSort, 3);
         toolbar.Controls.Add(refresh, 11, 0);
-        toolbar.Controls.Add(open, 6, 1); toolbar.SetColumnSpan(open, 2);
-        toolbar.Controls.Add(import, 8, 1); toolbar.SetColumnSpan(import, 2);
-        toolbar.Controls.Add(add, 10, 1); toolbar.SetColumnSpan(add, 2);
+        toolbar.Controls.Add(open, 5, 1); toolbar.SetColumnSpan(open, 2);
+        toolbar.Controls.Add(import, 7, 1); toolbar.SetColumnSpan(import, 2);
+        toolbar.Controls.Add(add, 9, 1); toolbar.SetColumnSpan(add, 2);
+        toolbar.Controls.Add(more, 11, 1);
         _profileManagementSearch.TextChanged += (_, _) => RefreshProfileManagementPage();
         _profileManagementFilter.SelectedIndexChanged += (_, _) => RefreshProfileManagementPage();
         _profileManagementSort.SelectedIndexChanged += (_, _) => RefreshProfileManagementPage();
@@ -238,19 +205,18 @@ public sealed partial class ManagerForm
         _profileManagementGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Profile", HeaderText = "Tên profile", MinimumWidth = 150, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 120, ReadOnly = true });
         _profileManagementGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Account", HeaderText = "Tài khoản TikTok", MinimumWidth = 170, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 130, ReadOnly = true });
         _profileManagementGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Trạng thái", Width = 130, ReadOnly = true });
-        _profileManagementGrid.Columns.Add(new DataGridViewButtonColumn { Name = "Open", HeaderText = "", Text = "▶ Mở", UseColumnTextForButtonValue = true, Width = 82 });
-        _profileManagementGrid.Columns.Add(new DataGridViewButtonColumn { Name = "Edit", HeaderText = "Thao tác", Text = "✎ Sửa", UseColumnTextForButtonValue = true, Width = 82 });
-        _profileManagementGrid.Columns.Add(new DataGridViewButtonColumn { Name = "Delete", HeaderText = "", Text = "▤ Xóa", UseColumnTextForButtonValue = true, Width = 82 });
+        _profileManagementGrid.Columns.Add(new DataGridViewButtonColumn { Name = "Open", HeaderText = "Thao tác", Text = $"{IconGlyphs.Open} Mở", UseColumnTextForButtonValue = true, Width = 86 });
+        _profileManagementGrid.Columns.Add(new DataGridViewButtonColumn { Name = "More", HeaderText = "", Text = IconGlyphs.More, UseColumnTextForButtonValue = true, Width = 58 });
         UiTheme.StyleGrid(_profileManagementGrid);
-        foreach (var name in new[] { "Open", "Edit", "Delete" })
+        foreach (var name in new[] { "Open", "More" })
         {
             var column = (DataGridViewButtonColumn)_profileManagementGrid.Columns[name];
             column.FlatStyle = FlatStyle.Flat;
             column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column.DefaultCellStyle.BackColor = Color.White;
             column.DefaultCellStyle.SelectionBackColor = UiTheme.PrimarySoft;
-            column.DefaultCellStyle.ForeColor = name == "Delete" ? UiTheme.Danger : UiTheme.TextPrimary;
-            column.DefaultCellStyle.SelectionForeColor = name == "Delete" ? UiTheme.Danger : UiTheme.TextPrimary;
+            column.DefaultCellStyle.ForeColor = UiTheme.TextPrimary;
+            column.DefaultCellStyle.SelectionForeColor = UiTheme.TextPrimary;
             column.DefaultCellStyle.Padding = new Padding(5, 6, 5, 6);
         }
         _profileManagementGrid.ColumnHeaderMouseClick += (_, e) =>
@@ -283,18 +249,7 @@ public sealed partial class ManagerForm
                 UpdateProfileSelectionLabel();
             }
             else if (column == "Open") await OpenProfileAsync(context);
-            else if (column == "Edit")
-            {
-                EnsureTab(context);
-                if (context.Tab is not null) SelectTabPageSafely(context.Tab);
-                await RenameSelectedProfileAsync();
-                ShowProfileManagementPage();
-            }
-            else if (column == "Delete")
-            {
-                await DeleteProfilesAsync([context]);
-                RefreshProfileManagementPage();
-            }
+            else if (column == "More") ShowProfileRowMenu(context, e.RowIndex);
         };
         _profileManagementGrid.CellValueChanged += (_, e) => { if (e.RowIndex >= 0 && e.ColumnIndex == 0) UpdateProfileSelectionLabel(); };
 
@@ -307,9 +262,73 @@ public sealed partial class ManagerForm
             ForeColor = UiTheme.TextSecondary,
             Font = new Font("Segoe UI", 9F)
         };
+        _profileEmptyStateTitle = new Label
+        {
+            Text = "Chưa có hồ sơ",
+            Dock = DockStyle.Top,
+            Height = 34,
+            TextAlign = ContentAlignment.MiddleCenter,
+            ForeColor = UiColors.Text,
+            Font = UiTypography.SectionTitle()
+        };
+        _profileEmptyStateDetail = new Label
+        {
+            Text = "Thêm hồ sơ mới hoặc nhập dữ liệu để bắt đầu.",
+            Dock = DockStyle.Top,
+            Height = 28,
+            TextAlign = ContentAlignment.MiddleCenter,
+            ForeColor = UiColors.TextMuted,
+            Font = UiTypography.Body()
+        };
+        var emptyAction = new Button { Text = $"{IconGlyphs.Add}  Thêm hồ sơ", AutoSize = false, Size = new Size(150, 42) };
+        UiTheme.StyleButton(emptyAction, UiButtonKind.Primary);
+        emptyAction.AutoSize = false;
+        emptyAction.Click += (_, _) => AddProfile();
+        var emptyCommands = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Top,
+            Height = 58,
+            FlowDirection = FlowDirection.LeftToRight,
+            WrapContents = false,
+            Padding = new Padding(0, 8, 0, 0)
+        };
+        emptyCommands.Controls.Add(emptyAction);
+        emptyCommands.Resize += (_, _) => emptyAction.Margin = new Padding(Math.Max(0, (emptyCommands.ClientSize.Width - emptyAction.Width) / 2), 0, 0, 0);
+        _profileEmptyState = new Panel
+        {
+            Dock = DockStyle.Fill,
+            Visible = false,
+            BackColor = UiColors.Surface,
+            Padding = new Padding(20, 90, 20, 20)
+        };
+        _profileEmptyState.Controls.Add(emptyCommands);
+        _profileEmptyState.Controls.Add(_profileEmptyStateDetail);
+        _profileEmptyState.Controls.Add(_profileEmptyStateTitle);
         card.Controls.Add(_profileManagementGrid);
+        card.Controls.Add(_profileEmptyState);
         card.Controls.Add(_profileSelectionLabel);
         return card;
+    }
+
+    void ShowProfileRowMenu(ProfileContext context, int rowIndex)
+    {
+        if (_profileManagementGrid is null || rowIndex < 0) return;
+        var menu = new ContextMenuStrip { Font = UiTypography.Body(), ShowImageMargin = false };
+        menu.Items.Add("Sửa tên hồ sơ", null, async (_, _) =>
+        {
+            EnsureTab(context);
+            if (context.Tab is not null) SelectTabPageSafely(context.Tab);
+            await RenameSelectedProfileAsync();
+            ShowProfileManagementPage();
+        });
+        menu.Items.Add("Xóa hồ sơ", null, async (_, _) =>
+        {
+            await DeleteProfilesAsync([context]);
+            RefreshProfileManagementPage();
+        });
+        menu.Closed += (_, _) => menu.Dispose();
+        var cell = _profileManagementGrid.GetCellDisplayRectangle(_profileManagementGrid.Columns["More"].Index, rowIndex, true);
+        menu.Show(_profileManagementGrid, new Point(cell.Left, cell.Bottom));
     }
 
     Control BuildProfileFooter()
@@ -390,6 +409,24 @@ public sealed partial class ManagerForm
             row.Cells["Status"].Style.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
         }
         grid.ResumeLayout();
+
+        if (_profileEmptyState is not null)
+        {
+            var empty = grid.Rows.Count == 0;
+            grid.Visible = !empty;
+            _profileEmptyState.Visible = empty;
+            if (empty)
+            {
+                var noProfiles = _contexts.Count == 0;
+                if (_profileEmptyStateTitle is not null)
+                    _profileEmptyStateTitle.Text = noProfiles ? "Chưa có hồ sơ" : "Không tìm thấy hồ sơ phù hợp";
+                if (_profileEmptyStateDetail is not null)
+                    _profileEmptyStateDetail.Text = noProfiles
+                        ? "Thêm hồ sơ mới hoặc nhập dữ liệu để bắt đầu."
+                        : "Hãy thay đổi từ khóa hoặc bộ lọc trạng thái.";
+                _profileEmptyState.BringToFront();
+            }
+        }
 
         var all = _contexts.Values.ToList();
         var runningCount = all.Count(c => ProfileManagementState(c) == RuntimeStateRunning);
@@ -815,15 +852,33 @@ public sealed partial class ManagerForm
     void UpdateWorkspaceHeaderPresentation()
     {
         if (_workspaceTitle is null || _workspaceSubtitle is null || _workspaceIcon is null) return;
+        if (_tabs.SelectedTab?.Tag is WorkspacePageMarker workspacePage)
+        {
+            SetActiveNavigation(workspacePage.NavigationKey);
+            _workspaceIcon.Text = workspacePage.Glyph;
+            _workspaceIcon.ForeColor = UiTheme.Primary;
+            _workspaceIcon.Font = UiTypography.Symbol(18F);
+            _workspaceTitle.Text = workspacePage.Title;
+            _workspaceSubtitle.Text = workspacePage.Subtitle;
+            return;
+        }
         var profileManagement = _profileManagementTab is not null && ReferenceEquals(_tabs.SelectedTab, _profileManagementTab);
-        _workspaceIcon.Text = profileManagement ? "▰" : "▦";
-        _workspaceIcon.ForeColor = profileManagement ? UiTheme.Primary : UiTheme.TextPrimary;
+        var profileContext = _tabs.SelectedTab?.Tag as ProfileContext;
+        var profileWorkspace = profileManagement || profileContext is not null;
+        var dashboard = _dashboardTab is not null && ReferenceEquals(_tabs.SelectedTab, _dashboardTab);
+        SetActiveNavigation(dashboard ? "overview" : "profiles");
+        _workspaceIcon.Text = profileWorkspace ? IconGlyphs.Profiles : IconGlyphs.Overview;
+        _workspaceIcon.ForeColor = profileWorkspace ? UiTheme.Primary : UiTheme.TextPrimary;
         _workspaceIcon.Font = profileManagement
             ? new Font("Segoe UI Symbol", 18F, FontStyle.Bold)
             : new Font("Segoe UI Symbol", 18F, FontStyle.Bold);
-        _workspaceTitle.Text = profileManagement ? "Quản lý hồ sơ" : "TikTok Operations";
+        _workspaceTitle.Text = profileManagement
+            ? "Quản lý hồ sơ"
+            : profileContext is not null ? $"Hồ sơ · {profileContext.Profile.Name}" : "Tổng quan vận hành";
         _workspaceSubtitle.Text = profileManagement
             ? "Quản lý profile, mở, thêm, sửa, xóa và nhập từ Excel."
-            : "Quản lý và vận hành hồ sơ tập trung.";
+            : profileContext is not null
+                ? "Điều khiển Chrome và theo dõi tiến trình của hồ sơ đang chọn."
+                : "Theo dõi sức khỏe hệ thống và hoạt động gần đây.";
     }
 }

@@ -72,18 +72,18 @@ internal sealed class ChromeMonitorForm : Form
     readonly Label _pageLabel = new() { AutoSize = true, TextAlign = ContentAlignment.MiddleCenter, Margin = new Padding(8, 9, 8, 0) };
     readonly Button _prev = new() { Text = "◀", Width = 38, Height = 30 };
     readonly Button _next = new() { Text = "▶", Width = 38, Height = 30 };
-    readonly Label _hint = new() { AutoSize = true, Text = "Double-click: phóng to Chrome  |  F8: ẩn/hiện giám sát", Margin = new Padding(12, 9, 4, 0) };
+    readonly Label _hint = new() { AutoSize = true, Text = "Nhấp đúp: mở rộng Chrome  |  F8: ẩn/hiện giám sát", Margin = new Padding(12, 9, 4, 0) };
     readonly FlowLayoutPanel _toolbar;
     readonly System.Windows.Forms.Timer _statusTimer = new() { Interval = 700 };
     readonly List<TileState> _tiles = [];
-    readonly Font _headerFont = new("Segoe UI Semibold", 10F);
-    readonly Font _footerFont = new("Segoe UI", 9F);
-    readonly Font _metricValueFont = new("Segoe UI Semibold", 9F);
-    static readonly Color TextPrimary = Color.FromArgb(36, 49, 66);
-    static readonly Color TextMuted = Color.FromArgb(88, 105, 126);
-    static readonly Color SoftBlue = Color.FromArgb(232, 242, 255);
-    static readonly Color SoftBlue2 = Color.FromArgb(247, 250, 254);
-    static readonly Color BlueBorder = Color.FromArgb(174, 201, 231);
+    readonly Font _headerFont = UiTypography.BodyStrong();
+    readonly Font _footerFont = UiTypography.Body();
+    readonly Font _metricValueFont = UiTypography.BodyStrong();
+    static readonly Color TextPrimary = UiColors.Text;
+    static readonly Color TextMuted = UiColors.TextMuted;
+    static readonly Color SoftBlue = UiColors.PrimarySoft;
+    static readonly Color SoftBlue2 = UiColors.SurfaceMuted;
+    static readonly Color BlueBorder = UiColors.BorderStrong;
 
     // Các resource GDI này dùng lại cho mọi lần repaint; tránh tạo/dispose hàng chục
     // Brush/Pen mỗi tick khi có nhiều ô giám sát.
@@ -125,7 +125,7 @@ internal sealed class ChromeMonitorForm : Form
         // Z-order. CenterScreen avoids relying on a parent/owner just for initial placement.
         StartPosition = FormStartPosition.CenterScreen;
         BackColor = UiTheme.Canvas;
-        Font = new Font("Segoe UI", 9F);
+        Font = UiTypography.Body();
         DoubleBuffered = true;
 
         _toolbar = new FlowLayoutPanel
