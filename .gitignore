@@ -1,1 +1,41 @@
+# IDE and local tooling
 .vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# .NET build output
+**/bin/
+**/obj/
+/dist*/
+/build*/
+/publish*/
+/SETUP_OUTPUT/
+/RELEASE_OUTPUT/
+/SOURCE_OUTPUT/
+*.pdb
+
+# Runtime and user-owned data
+/ipc_restart_*/
+/ipc_test_*/
+/profiles/
+/TikTokProfiles/
+**/logs/
+**/config_backups/
+**/default_config_backups/
+**/live_cu_tam/
+runtime_stats.json
+profiles.json
+manager_*_queue.json
+
+# Generated packages and local backups
+*.zip
+*.log
+*.bak
+*.bak_*
+*.tmp
+
+# OS noise
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ToolTikTok.Manager\ToolTikTok.Manager.csproj" />
+    <ProjectReference Include="..\..\src\ToolTikTok.Contracts\ToolTikTok.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\ToolTikTok.Automation\ToolTikTok.Automation.csproj" />
+  </ItemGroup>
+</Project>

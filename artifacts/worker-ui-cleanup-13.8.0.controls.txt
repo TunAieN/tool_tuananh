@@ -1,0 +1,201 @@
+MainForm name= visible=True bounds={X=0,Y=0,Width=1280,Height=800} text=TikTok Automation Console V13.8.0
+  TabControl name= visible=True bounds={X=0,Y=0,Width=1262,Height=577} text=
+    TabPage name= visible=True bounds={X=4,Y=42,Width=1254,Height=531} text=Vận hành
+      Panel name= visible=True bounds={X=0,Y=0,Width=1254,Height=531} text=
+        TableLayoutPanel name= visible=True bounds={X=8,Y=8,Width=1237,Height=507} text=
+          GroupBox name= visible=True bounds={X=0,Y=0,Width=1237,Height=195} text=Thời gian vận hành
+            TableLayoutPanel name= visible=True bounds={X=12,Y=34,Width=1213,Height=115} text=
+              Label name= visible=True bounds={X=0,Y=8,Width=155,Height=21} text=Độ trễ giữa thao tác
+              NumericUpDown name= visible=True bounds={X=210,Y=4,Width=90,Height=29} text=700
+                UpDownButtons name= visible=True bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=True bounds={X=2,Y=2,Width=66,Height=25} text=700
+              Label name= visible=True bounds={X=313,Y=8,Width=31,Height=21} text=ms
+              Label name= visible=True bounds={X=351,Y=8,Width=24,Height=21} text=→
+              NumericUpDown name= visible=True bounds={X=386,Y=4,Width=90,Height=29} text=1200
+                UpDownButtons name= visible=True bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=True bounds={X=2,Y=2,Width=66,Height=25} text=1200
+              Label name= visible=True bounds={X=489,Y=8,Width=31,Height=21} text=ms
+              Label name= visible=True bounds={X=0,Y=45,Width=146,Height=21} text=Nghỉ sau mỗi vòng
+              NumericUpDown name= visible=True bounds={X=210,Y=41,Width=90,Height=29} text=700
+                UpDownButtons name= visible=True bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=True bounds={X=2,Y=2,Width=66,Height=25} text=700
+              Label name= visible=True bounds={X=313,Y=45,Width=31,Height=21} text=ms
+              Label name= visible=True bounds={X=351,Y=45,Width=24,Height=21} text=→
+              NumericUpDown name= visible=True bounds={X=386,Y=41,Width=90,Height=29} text=1200
+                UpDownButtons name= visible=True bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=True bounds={X=2,Y=2,Width=66,Height=25} text=1200
+              Label name= visible=True bounds={X=489,Y=45,Width=31,Height=21} text=ms
+              FlowLayoutPanel name= visible=True bounds={X=0,Y=80,Width=1213,Height=35} text=
+                Label name= visible=True bounds={X=8,Y=8,Width=131,Height=21} text=F5 định kỳ (phút)
+                ComboBox name= visible=True bounds={X=144,Y=3,Width=110,Height=29} text=Không dùng
+                Label name= visible=True bounds={X=265,Y=8,Width=213,Height=21} text=Hẹn dừng (phút, 0 = không)
+                NumericUpDown name= visible=True bounds={X=483,Y=3,Width=90,Height=29} text=0
+                  UpDownButtons name= visible=True bounds={X=69,Y=1,Width=20,Height=27} text=
+                  UpDownEdit name= visible=True bounds={X=2,Y=2,Width=66,Height=25} text=0
+          GroupBox name= visible=True bounds={X=0,Y=203,Width=1237,Height=240} text=Danh sách nội dung — giữ nguyên cơ chế mỗi dòng = một nội dung
+            TableLayoutPanel name= visible=True bounds={X=12,Y=34,Width=1213,Height=194} text=
+              Label name= visible=True bounds={X=0,Y=0,Width=165,Height=21} text=Số nội dung hợp lệ: 0
+              TextBox name= visible=True bounds={X=3,Y=30,Width=1207,Height=161} text=
+          TableLayoutPanel name= visible=True bounds={X=0,Y=451,Width=1237,Height=48} text=
+            Button name= visible=True bounds={X=4,Y=3,Width=1229,Height=42} text=›  Nâng cao — XPath, CDP và hover
+            TableLayoutPanel name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=
+              TableLayoutPanel name= visible=False bounds={X=18,Y=0,Width=172,Height=54} text=
+                Label name= visible=False bounds={X=0,Y=2,Width=172,Height=24} text=Trạng thái Chrome: ⚪ Chưa mở Chrome
+                Label name= visible=False bounds={X=0,Y=28,Width=172,Height=24} text=TikTok: —
+              GroupBox name= visible=False bounds={X=13,Y=63,Width=174,Height=385} text=XPath thao tác chính — giao diện gọn, XPath đầy đủ chỉ xem khi cần
+                TableLayoutPanel name= visible=False bounds={X=12,Y=34,Width=150,Height=394} text=
+                  TableLayoutPanel name= visible=False bounds={X=0,Y=0,Width=150,Height=79} text=
+                    FlowLayoutPanel name= visible=False bounds={X=0,Y=0,Width=394,Height=77} text=
+                      CheckBox name= visible=False bounds={X=3,Y=3,Width=388,Height=25} text=Chuyển LIVE bằng phím ↓ qua CDP (khuyên dùng)
+                      Button name= visible=False bounds={X=4,Y=34,Width=118,Height=40} text=Thử ↓ CDP
+                    Label name= visible=False bounds={X=0,Y=79,Width=394,Height=1} text=Chuyển LIVE: ArrowDown CDP → xác nhận roomId/href đã đổi → mới F5; nếu ↓ không đổi LIVE sẽ thử XPath nút LIVE dự phòng.
+                  Label name= visible=False bounds={X=3,Y=85,Width=69,Height=42} text=Điểm/ô nhập 1
+                  Label name= visible=False bounds={X=85,Y=83,Width=31,Height=28} text=— Thiếu
+                  Button name= visible=False bounds={X=123,Y=86,Width=23,Height=40} text=Chỉnh sửa
+                  Label name= visible=False bounds={X=3,Y=131,Width=69,Height=42} text=Điểm/ô nhập 2
+                  Label name= visible=False bounds={X=85,Y=129,Width=31,Height=28} text=— Thiếu
+                  Button name= visible=False bounds={X=123,Y=132,Width=23,Height=40} text=Chỉnh sửa
+                  Label name= visible=False bounds={X=3,Y=175,Width=76,Height=63} text=Nút LIVE (dự phòng)
+                  Label name= visible=False bounds={X=85,Y=175,Width=31,Height=28} text=— Thiếu
+                  Button name= visible=False bounds={X=123,Y=178,Width=23,Height=40} text=Chỉnh sửa
+                  Label name= visible=False bounds={X=3,Y=238,Width=63,Height=84} text=Vùng hover (dự phòng)
+                  Label name= visible=False bounds={X=85,Y=238,Width=31,Height=28} text=— Thiếu
+                  Button name= visible=False bounds={X=123,Y=241,Width=23,Height=40} text=Chỉnh sửa
+                  FlowLayoutPanel name= visible=False bounds={X=0,Y=326,Width=150,Height=66} text=
+                    CheckBox name= visible=False bounds={X=3,Y=3,Width=277,Height=25} text=Nút chuyển live cần hover để hiện
+                    Label name= visible=False bounds={X=8,Y=39,Width=110,Height=21} text=Chờ hover ms
+                    NumericUpDown name= visible=False bounds={X=3,Y=63,Width=90,Height=29} text=350
+                      UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+                      UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=350
+    TabPage name= visible=False bounds={X=4,Y=42,Width=1254,Height=531} text=Người xem
+      FlowLayoutPanel name= visible=False bounds={X=0,Y=0,Width=1254,Height=531} text=
+        CheckBox name= visible=False bounds={X=15,Y=15,Width=104,Height=24} text=Bật kiểm tra người xem
+        TableLayoutPanel name= visible=False bounds={X=12,Y=47,Width=498,Height=46} text=
+          Label name= visible=False bounds={X=3,Y=12,Width=147,Height=21} text=XPath số người xem
+          Label name= visible=False bounds={X=173,Y=0,Width=76,Height=28} text=— Thiếu
+          Button name= visible=False bounds={X=256,Y=3,Width=84,Height=40} text=Lấy XPath
+          Button name= visible=False bounds={X=348,Y=3,Width=62,Height=40} text=Thử
+          Button name= visible=False bounds={X=418,Y=3,Width=76,Height=40} text=Xem/Sửa
+        FlowLayoutPanel name= visible=False bounds={X=15,Y=101,Width=964,Height=35} text=
+          Label name= visible=False bounds={X=8,Y=8,Width=68,Height=21} text=Ngưỡng
+          NumericUpDown name= visible=False bounds={X=81,Y=3,Width=90,Height=29} text=100
+            UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+            UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=100
+          Label name= visible=False bounds={X=182,Y=8,Width=108,Height=21} text=Xác nhận thấp
+          NumericUpDown name= visible=False bounds={X=295,Y=3,Width=90,Height=29} text=2
+            UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+            UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=2
+          Label name= visible=False bounds={X=396,Y=8,Width=121,Height=21} text=Chờ sau F5 giây
+          NumericUpDown name= visible=False bounds={X=522,Y=3,Width=90,Height=29} text=2
+            UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+            UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=2
+          Label name= visible=False bounds={X=623,Y=8,Width=79,Height=21} text=Max ↓+F5
+          NumericUpDown name= visible=False bounds={X=707,Y=3,Width=90,Height=29} text=100
+            UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+            UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=100
+        FlowLayoutPanel name= visible=False bounds={X=15,Y=142,Width=964,Height=46} text=
+          Button name= visible=False bounds={X=4,Y=3,Width=184,Height=40} text=Đọc thử người xem
+          Label name= visible=False bounds={X=195,Y=0,Width=73,Height=21} text=Chưa thử
+        Label name= visible=False bounds={X=15,Y=191,Width=964,Height=63} text=Viewer Gate: khi bật, tool bắt buộc đọc số người xem bằng XPath/DOM trước mỗi Click điểm 1 và điểm 2; không còn kiểm tra theo chu kỳ thời gian. Chỉ khi đọc được số > ngưỡng mới cho Click/Dán/Enter. Nếu thấp hoặc không đọc được sau retry, tool chuyển LIVE + F5 và tiếp tục tìm LIVE đủ người. Parser hiểu 4.3K=4300, 15.6K=15600, 2.5M=2500000.
+    TabPage name= visible=False bounds={X=4,Y=42,Width=1254,Height=531} text=Chẩn đoán
+      TabControl name= visible=False bounds={X=8,Y=8,Width=1238,Height=515} text=
+        TabPage name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=Bảo vệ nhập liệu
+          FlowLayoutPanel name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=
+            Label name= visible=False bounds={X=15,Y=12,Width=487,Height=42} text=V13.8.0 — phát hiện trạng thái trực tiếp từ DOM/XPath, không quét ảnh vùng lỗi
+            CheckBox name= visible=False bounds={X=15,Y=57,Width=347,Height=25} text=Bật kiểm tra trạng thái ô nhập trước mỗi Click
+            TableLayoutPanel name= visible=False bounds={X=12,Y=91,Width=497,Height=92} text=
+              Label name= visible=False bounds={X=3,Y=12,Width=114,Height=21} text=XPath ô nhập 1
+              Label name= visible=False bounds={X=138,Y=0,Width=82,Height=28} text=— Thiếu
+              Button name= visible=False bounds={X=227,Y=3,Width=84,Height=40} text=Chỉnh sửa
+              Label name= visible=False bounds={X=3,Y=58,Width=114,Height=21} text=XPath ô nhập 2
+              Label name= visible=False bounds={X=138,Y=46,Width=82,Height=28} text=— Thiếu
+              Button name= visible=False bounds={X=227,Y=49,Width=84,Height=40} text=Chỉnh sửa
+            FlowLayoutPanel name= visible=False bounds={X=12,Y=197,Width=497,Height=105} text=
+              Label name= visible=False bounds={X=8,Y=8,Width=128,Height=21} text=Chữ bình thường
+              TextBox name= visible=False bounds={X=141,Y=3,Width=160,Height=29} text=Nhập
+              Label name= visible=False bounds={X=312,Y=8,Width=98,Height=21} text=Xác nhận lần
+              NumericUpDown name= visible=False bounds={X=3,Y=38,Width=90,Height=29} text=2
+                UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=2
+              Label name= visible=False bounds={X=104,Y=43,Width=108,Height=21} text=Cách nhau ms
+              NumericUpDown name= visible=False bounds={X=217,Y=38,Width=90,Height=29} text=150
+                UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=150
+              Label name= visible=False bounds={X=318,Y=43,Width=93,Height=21} text=Lỗi LT tối đa
+              NumericUpDown name= visible=False bounds={X=3,Y=73,Width=90,Height=29} text=3
+                UpDownButtons name= visible=False bounds={X=69,Y=1,Width=20,Height=27} text=
+                UpDownEdit name= visible=False bounds={X=2,Y=2,Width=66,Height=25} text=3
+            FlowLayoutPanel name= visible=False bounds={X=12,Y=308,Width=497,Height=46} text=
+              Button name= visible=False bounds={X=4,Y=3,Width=129,Height=40} text=Kiểm tra ô 1
+              Button name= visible=False bounds={X=141,Y=3,Width=132,Height=40} text=Kiểm tra ô 2
+              Label name= visible=False bounds={X=280,Y=0,Width=107,Height=21} text=Chưa kiểm tra
+            Label name= visible=False bounds={X=15,Y=362,Width=488,Height=210} text=Logic runtime V13: ngay trước Click 1/2, tool đọc ô nhập bằng CDP. Hai dòng XPath phía trên dùng chung trực tiếp với Điểm/ô nhập 1 và 2 ở tab Điều khiển / XPath. Bình thường = ô tồn tại, hiển thị, editable, rỗng và còn chữ/placeholder cấu hình (mặc định ‘Nhập’). Nếu bất thường liên tiếp theo số lần xác nhận, tool gọi nguyên flow chuyển LIVE cũ (↓/nút LIVE → chờ → F5 → xác nhận LIVE mới). Các vùng ảnh lỗi/STOP/ban acc cũ không còn chạy trong runtime. Viewer dùng cổng bắt buộc trước mỗi Click 1/2 (không còn chu kỳ định kỳ); F5 định kỳ vẫn giữ nguyên; Live cũ V13.8.0 dùng định danh tài khoản DOM/XPath.
+        TabPage name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=Tối ưu hệ thống
+          FlowLayoutPanel name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=
+            Label name= visible=False bounds={X=15,Y=12,Width=170,Height=63} text=V13.8.0 — chế độ tiết kiệm tài nguyên cho máy ảo
+            FlowLayoutPanel name= visible=False bounds={X=15,Y=78,Width=170,Height=109} text=
+              Label name= visible=False bounds={X=8,Y=8,Width=59,Height=21} text=Chế độ
+              ComboBox name= visible=False bounds={X=3,Y=32,Width=150,Height=29} text=VM Safe
+              Button name= visible=False bounds={X=4,Y=66,Width=146,Height=40} text=Áp dụng ngay
+              Label name= visible=False bounds={X=164,Y=70,Width=0,Height=20} text=
+            Label name= visible=False bounds={X=15,Y=190,Width=169,Height=126} text=VM Safe: UI nền 2s, log UI 250ms, ẩn log PERF/CDP chi tiết, pause video liên tục. Không bật background throttling.
+            Label name= visible=False bounds={X=15,Y=316,Width=170,Height=420} text=VM Safe: giảm refresh UI/log và pause video bằng DOM; vẫn giữ các cờ chống Chrome background throttling để workflow phản hồi như trước.
+VM Max: thêm block các media URL phổ biến, tắt animation CSS và cho Chrome background throttling hoạt động trở lại. Đây là mức tiết kiệm mạnh, nên test trên từng VM.
+Không thay đổi XPath, delay nghiệp vụ, Viewer, InputGuard, Live cũ, F5 hoặc flow chuyển LIVE.
+        TabPage name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=LIVE đã xem
+          FlowLayoutPanel name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=
+            CheckBox name= visible=False bounds={X=15,Y=15,Width=104,Height=24} text=Bật Live cũ
+            TableLayoutPanel name= visible=False bounds={X=12,Y=47,Width=498,Height=46} text=
+              Label name= visible=False bounds={X=3,Y=12,Width=151,Height=21} text=XPath tài khoản LIVE
+              Label name= visible=False bounds={X=173,Y=0,Width=76,Height=28} text=— Thiếu
+              Button name= visible=False bounds={X=256,Y=3,Width=84,Height=40} text=Lấy XPath
+              Button name= visible=False bounds={X=348,Y=3,Width=62,Height=40} text=Thử
+              Button name= visible=False bounds={X=418,Y=3,Width=76,Height=40} text=Xem/Sửa
+            TableLayoutPanel name= visible=False bounds={X=12,Y=103,Width=498,Height=46} text=
+              Label name= visible=False bounds={X=3,Y=12,Width=158,Height=21} text=XPath nút chuyển live
+              Label name= visible=False bounds={X=173,Y=0,Width=76,Height=28} text=— Thiếu
+              Button name= visible=False bounds={X=256,Y=3,Width=84,Height=40} text=Lấy XPath
+              Button name= visible=False bounds={X=348,Y=3,Width=62,Height=40} text=Thử
+              Button name= visible=False bounds={X=418,Y=3,Width=76,Height=40} text=Xem/Sửa
+            FlowLayoutPanel name= visible=False bounds={X=15,Y=157,Width=492,Height=92} text=
+              Label name= visible=False bounds={X=8,Y=8,Width=70,Height=21} text=Giữ phút
+              ComboBox name= visible=False bounds={X=83,Y=3,Width=110,Height=29} text=10
+              Button name= visible=False bounds={X=200,Y=3,Width=172,Height=40} text=Đọc thử tài khoản
+              Button name= visible=False bounds={X=4,Y=49,Width=202,Height=40} text=Xóa danh sách Live cũ
+              Label name= visible=False bounds={X=213,Y=46,Width=170,Height=21} text=Chưa đọc thử tài khoản
+            Label name= visible=False bounds={X=15,Y=252,Width=488,Height=105} text=V13.8.0 không chụp/quét ảnh Live cũ. Tại mốc T-10s, tool đọc tài khoản LIVE trực tiếp từ XPath và lưu định danh (ưu tiên username/href) với TTL. Trong runtime, nếu tài khoản hiện tại trùng một entry Live cũ còn hiệu lực thì gọi nguyên flow chuyển LIVE + F5 như trước. Tên hiển thị chỉ để xem; so sánh ưu tiên định danh ổn định.
+            Label name= visible=False bounds={X=15,Y=357,Width=142,Height=21} text=Số LIVE cũ active: 0
+            Label name= visible=False bounds={X=15,Y=378,Width=203,Height=21} text=Lần lưu LIVE cũ gần nhất: —
+            Label name= visible=False bounds={X=15,Y=399,Width=184,Height=21} text=Lần kiểm tra gần nhất: —
+            Label name= visible=False bounds={X=15,Y=420,Width=207,Height=21} text=Kết quả so sánh gần nhất: —
+            Label name= visible=False bounds={X=15,Y=441,Width=160,Height=21} text=Định danh hiện tại: —
+            DataGridView name= visible=False bounds={X=15,Y=465,Width=492,Height=180} text=
+              HScrollBar name= visible=False bounds={X=0,Y=129,Width=80,Height=21} text=
+              VScrollBar name= visible=False bounds={X=219,Y=0,Width=21,Height=100} text=
+        TabPage name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=Sự cố
+          TextBox name= visible=False bounds={X=0,Y=219,Width=200,Height=-119} text=
+          FlowLayoutPanel name= visible=False bounds={X=0,Y=0,Width=200,Height=219} text=
+            Button name= visible=False bounds={X=10,Y=9,Width=212,Height=40} text=Kiểm tra toàn bộ XPath
+            Button name= visible=False bounds={X=10,Y=55,Width=170,Height=40} text=Xóa danh sách lỗi
+            Label name= visible=False bounds={X=16,Y=108,Width=175,Height=105} text=Lỗi runtime ghi rõ InputGuard/XPath/thao tác. Lỗi lặp giống nhau được giới hạn tần suất để không spam log.
+        TabPage name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=Nhật ký
+          TextBox name= visible=False bounds={X=0,Y=0,Width=200,Height=100} text=
+  TableLayoutPanel name= visible=True bounds={X=0,Y=577,Width=1262,Height=176} text=
+    FlowLayoutPanel name= visible=True bounds={X=14,Y=12,Width=390,Height=152} text=
+      Button name= visible=True bounds={X=4,Y=4,Width=172,Height=42} text=▶  Chạy hồ sơ
+      Button name= visible=True bounds={X=186,Y=4,Width=172,Height=42} text=⏸  Tạm dừng
+      Button name= visible=True bounds={X=4,Y=53,Width=161,Height=40} text=💾 Lưu thiết lập
+      Button name= visible=True bounds={X=173,Y=53,Width=108,Height=40} text=⋯  Thêm
+    TableLayoutPanel name= visible=True bounds={X=414,Y=12,Width=834,Height=152} text=
+      Panel name= visible=True bounds={X=12,Y=12,Width=401,Height=26} text=
+        Label name= visible=True bounds={X=10,Y=2,Width=383,Height=22} text=Trạng thái: Sẵn sàng
+      Panel name= visible=True bounds={X=421,Y=12,Width=401,Height=26} text=
+        Label name= visible=True bounds={X=10,Y=2,Width=383,Height=22} text=Vòng: 0
+      Panel name= visible=True bounds={X=12,Y=46,Width=401,Height=26} text=
+        Label name= visible=True bounds={X=10,Y=2,Width=383,Height=22} text=⏱ Phiên hiện tại: 00:00:00
+      Panel name= visible=True bounds={X=421,Y=46,Width=401,Height=26} text=
+        Label name= visible=True bounds={X=10,Y=2,Width=383,Height=22} text=Hôm nay: 00:00:00
+      Label name= visible=True bounds={X=11,Y=76,Width=403,Height=34} text=Tổng thời gian chạy: 0h 00m
+      Label name= visible=True bounds={X=420,Y=76,Width=403,Height=34} text=↓ + F5 định kỳ: tắt.
+      Label name= visible=True bounds={X=11,Y=110,Width=403,Height=34} text=Bước: —
+      Label name= visible=False bounds={X=0,Y=0,Width=100,Height=23} text=Lỗi: không có

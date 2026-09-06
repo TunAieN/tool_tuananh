@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <!-- Keep runtime names stable for Manager/installer compatibility. -->
+    <AssemblyName>ToolTikTokWorkerV13</AssemblyName>
+    <RootNamespace>ToolTikTokV11</RootNamespace>
+    <Product>Tool TikTok V13 - DOM Input Guard Worker</Product>
+    <ApplicationManifest>..\ToolTikTok.Automation\app.manifest</ApplicationManifest>
+    <OutputPath>..\..\dist_v13\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToolTikTok.Contracts\ToolTikTok.Contracts.csproj" />
+    <ProjectReference Include="..\ToolTikTok.Automation\ToolTikTok.Automation.csproj" />
+    <ProjectReference Include="..\ToolTikTok.UI\ToolTikTok.UI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\config\defaults\**\*" Link="defaults\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

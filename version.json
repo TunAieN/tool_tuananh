@@ -1,0 +1,10 @@
+﻿{
+  "version": "13.8.0",
+  "setupUrl": "https://github.com/AnhLeeeeee/TOOL-V13/releases/download/v13.8.0/ToolTikTok_V13.8.0_Setup.exe",
+  "sha256": "",
+  "notes": "Cập nhật Tool TikTok V13.8.0.",
+  "channel": "stable",
+  "status": "stable",
+  "releaseDate": "2026-09-06",
+  "allowInstall": true
+}

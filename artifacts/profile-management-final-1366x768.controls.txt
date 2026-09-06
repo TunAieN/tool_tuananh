@@ -1,0 +1,151 @@
+ManagerForm name= visible=True bounds={X=0,Y=0,Width=1366,Height=768} text=TikTok Operations Center V13.8.0
+  TableLayoutPanel name= visible=True bounds={X=0,Y=0,Width=1348,Height=721} text=
+    Panel name= visible=True bounds={X=3,Y=3,Width=266,Height=715} text=
+      FlowLayoutPanel name= visible=True bounds={X=14,Y=108,Width=238,Height=481} text=
+        Label name= visible=True bounds={X=0,Y=12,Width=211,Height=30} text=TỔNG QUAN
+        Button name= visible=True bounds={X=0,Y=46,Width=211,Height=44} text=⌂  Tổng quan
+        Label name= visible=True bounds={X=0,Y=100,Width=211,Height=30} text=VẬN HÀNH
+        Button name= visible=True bounds={X=0,Y=134,Width=211,Height=44} text=▰  Hồ sơ
+        Button name= visible=True bounds={X=0,Y=182,Width=211,Height=44} text=✉  Trả lời tin nhắn
+        Button name= visible=True bounds={X=0,Y=230,Width=211,Height=44} text=▣  Theo dõi cửa sổ
+        Label name= visible=True bounds={X=0,Y=284,Width=211,Height=30} text=QUẢN LÝ
+        Button name= visible=True bounds={X=0,Y=318,Width=211,Height=44} text=◫  Tài khoản
+        Button name= visible=True bounds={X=0,Y=366,Width=211,Height=44} text=◉  Cập nhật hồ sơ
+        Button name= visible=True bounds={X=0,Y=414,Width=211,Height=44} text=↻  Đồng bộ dữ liệu
+        Label name= visible=True bounds={X=0,Y=468,Width=211,Height=30} text=HỆ THỐNG
+        Button name= visible=True bounds={X=0,Y=502,Width=211,Height=44} text=◇  Thiết lập
+        Button name= visible=True bounds={X=0,Y=550,Width=211,Height=44} text=☷  Nhật ký
+      TableLayoutPanel name= visible=True bounds={X=14,Y=589,Width=238,Height=112} text=
+        Label name= visible=True bounds={X=0,Y=10,Width=238,Height=44} text=Tất cả hồ sơ đã được mở
+        Button name= visible=True bounds={X=0,Y=64,Width=115,Height=48} text=▶  Chạy tất cả
+        Button name= visible=True bounds={X=123,Y=64,Width=115,Height=48} text=■  Dừng tất cả
+      Panel name= visible=True bounds={X=14,Y=0,Width=238,Height=108} text=
+        Label name= visible=True bounds={X=8,Y=22,Width=38,Height=38} text=♪
+        Label name= visible=True bounds={X=54,Y=22,Width=162,Height=25} text=TikTok Operations
+        Label name= visible=True bounds={X=55,Y=50,Width=105,Height=20} text=Control Center
+        Label name= visible=True bounds={X=154,Y=47,Width=64,Height=22} text=V13.8.0
+    ModernGradientPanel name= visible=True bounds={X=275,Y=3,Width=1070,Height=715} text=
+      Panel name= visible=True bounds={X=20,Y=106,Width=1030,Height=589} text=
+        TabControl name= visible=True bounds={X=0,Y=0,Width=1030,Height=589} text=
+          TabPage name= visible=False bounds={X=4,Y=5,Width=1022,Height=580} text=Tổng quan
+            TableLayoutPanel name= visible=False bounds={X=0,Y=0,Width=1022,Height=800} text=
+              TableLayoutPanel name= visible=False bounds={X=10,Y=20,Width=1002,Height=116} text=
+                ModernCardPanel name= visible=False bounds={X=0,Y=0,Width=188,Height=116} text=
+                  Label name= visible=False bounds={X=64,Y=14,Width=116,Height=22} text=Tổng quan
+                  Label name= visible=False bounds={X=64,Y=38,Width=116,Height=33} text=0
+                  Label name= visible=False bounds={X=64,Y=72,Width=116,Height=22} text=Hồ sơ đang mở
+                  Label name= visible=False bounds={X=14,Y=22,Width=44,Height=44} text=▦
+                ModernCardPanel name= visible=False bounds={X=200,Y=0,Width=188,Height=116} text=
+                  Label name= visible=False bounds={X=64,Y=14,Width=116,Height=22} text=Đang chạy
+                  Label name= visible=False bounds={X=64,Y=38,Width=116,Height=33} text=0
+                  Label name= visible=False bounds={X=64,Y=72,Width=116,Height=22} text=Đang hoạt động
+                  Label name= visible=False bounds={X=14,Y=22,Width=44,Height=44} text=▶
+                ModernCardPanel name= visible=False bounds={X=400,Y=0,Width=188,Height=116} text=
+                  Label name= visible=False bounds={X=64,Y=14,Width=116,Height=22} text=Tạm dừng
+                  Label name= visible=False bounds={X=64,Y=38,Width=116,Height=33} text=0
+                  Label name= visible=False bounds={X=64,Y=72,Width=116,Height=22} text=Đang tạm dừng
+                  Label name= visible=False bounds={X=14,Y=22,Width=44,Height=44} text=Ⅱ
+                ModernCardPanel name= visible=False bounds={X=600,Y=0,Width=188,Height=116} text=
+                  Label name= visible=False bounds={X=64,Y=14,Width=116,Height=22} text=Khôi phục
+                  Label name= visible=False bounds={X=64,Y=38,Width=116,Height=33} text=0
+                  Label name= visible=False bounds={X=64,Y=72,Width=116,Height=22} text=Đang khôi phục
+                  Label name= visible=False bounds={X=14,Y=22,Width=44,Height=44} text=↻
+                ModernCardPanel name= visible=False bounds={X=800,Y=0,Width=202,Height=116} text=
+                  Label name= visible=False bounds={X=64,Y=14,Width=130,Height=22} text=Tổng thời gian
+                  Label name= visible=False bounds={X=64,Y=38,Width=130,Height=33} text=00:00:00
+                  Label name= visible=False bounds={X=64,Y=72,Width=130,Height=22} text=Thời gian vận hành
+                  Label name= visible=False bounds={X=14,Y=22,Width=44,Height=44} text=◷
+              ModernCardPanel name= visible=False bounds={X=10,Y=146,Width=1002,Height=100} text=
+                TableLayoutPanel name= visible=False bounds={X=16,Y=12,Width=970,Height=76} text=
+                  Panel name= visible=False bounds={X=3,Y=3,Width=314,Height=100} text=
+                    Label name= visible=False bounds={X=0,Y=16,Width=44,Height=44} text=⚙
+                    Label name= visible=False bounds={X=58,Y=4,Width=239,Height=25} text=Phiên bản hiện tại: V13.8.0
+                    Label name= visible=False bounds={X=300,Y=1,Width=64,Height=24} text=Mới nhất
+                    Label name= visible=False bounds={X=58,Y=29,Width=246,Height=24} text=Chưa cấu hình nguồn cập nhật.
+                  TableLayoutPanel name= visible=False bounds={X=320,Y=0,Width=650,Height=106} text=
+                    Button name= visible=False bounds={X=4,Y=3,Width=212,Height=100} text=Cài / Hạ phiên bản  ▾
+                    Button name= visible=False bounds={X=224,Y=3,Width=182,Height=100} text=Kiểm tra cập nhật
+                    Button name= visible=False bounds={X=414,Y=3,Width=232,Height=100} text=Cấu hình cập nhật
+              ModernCardPanel name= visible=False bounds={X=10,Y=256,Width=1002,Height=304} text=
+                DataGridView name=DashboardGrid visible=False bounds={X=16,Y=82,Width=148,Height=148} text=
+                  HScrollBar name= visible=False bounds={X=0,Y=129,Width=80,Height=21} text=
+                  VScrollBar name= visible=False bounds={X=219,Y=0,Width=21,Height=100} text=
+                Panel name= visible=False bounds={X=16,Y=82,Width=970,Height=206} text=
+                  TableLayoutPanel name= visible=False bounds={X=305,Y=0,Width=360,Height=224} text=
+                    ModernCardPanel name= visible=False bounds={X=132,Y=0,Width=96,Height=96} text=
+                      Label name= visible=False bounds={X=14,Y=20,Width=66,Height=58} text=▰
+                      Label name= visible=False bounds={X=55,Y=55,Width=38,Height=38} text=⌕
+                    Label name= visible=False bounds={X=53,Y=110,Width=254,Height=31} text=Chưa có hồ sơ phù hợp
+                    Label name= visible=False bounds={X=0,Y=145,Width=360,Height=21} text=Hãy tạo, mở hồ sơ hoặc thay đổi bộ lọc để bắt đầu.
+                    FlowLayoutPanel name= visible=False bounds={X=24,Y=179,Width=312,Height=42} text=
+                      Button name= visible=False bounds={X=0,Y=0,Width=150,Height=42} text=+  Mở hồ sơ
+                      Button name= visible=False bounds={X=162,Y=0,Width=150,Height=42} text=Tạo hồ sơ mới
+                TableLayoutPanel name= visible=False bounds={X=16,Y=16,Width=970,Height=66} text=
+                  Panel name= visible=False bounds={X=3,Y=3,Width=394,Height=60} text=
+                    Label name= visible=False bounds={X=54,Y=4,Width=184,Height=31} text=Danh sách hồ sơ
+                    Label name= visible=False bounds={X=55,Y=33,Width=288,Height=19} text=Theo dõi trạng thái hồ sơ theo thời gian thực.
+                    Label name= visible=False bounds={X=0,Y=7,Width=42,Height=42} text=▰
+                  TableLayoutPanel name= visible=False bounds={X=403,Y=3,Width=564,Height=60} text=
+                    ModernCardPanel name= visible=False bounds={X=8,Y=8,Width=298,Height=44} text=
+                      TextBox name= visible=False bounds={X=36,Y=12,Width=252,Height=22} text=
+                      Label name= visible=False bounds={X=7,Y=6,Width=28,Height=28} text=⌕
+                    Button name= visible=False bounds={X=316,Y=8,Width=190,Height=44} text=◉  Tất cả trạng thái  ▾
+                    Button name= visible=False bounds={X=520,Y=11,Width=40,Height=38} text=↻
+              ModernCardPanel name= visible=False bounds={X=10,Y=570,Width=1002,Height=220} text=
+                TableLayoutPanel name= visible=False bounds={X=14,Y=46,Width=974,Height=166} text=
+                  ModernActionCard name= visible=False bounds={X=0,Y=2,Width=314,Height=74} text=
+                  ModernActionCard name= visible=False bounds={X=324,Y=2,Width=314,Height=74} text=
+                  ModernActionCard name= visible=False bounds={X=648,Y=2,Width=326,Height=74} text=
+                  ModernActionCard name= visible=False bounds={X=0,Y=84,Width=314,Height=82} text=
+                  ModernActionCard name= visible=False bounds={X=324,Y=84,Width=314,Height=82} text=
+                  ModernActionCard name= visible=False bounds={X=648,Y=84,Width=326,Height=82} text=
+                Panel name= visible=False bounds={X=14,Y=8,Width=974,Height=38} text=
+                  Label name= visible=False bounds={X=0,Y=0,Width=173,Height=25} text=⚡  Thao tác nhanh
+                  Label name= visible=False bounds={X=20,Y=21,Width=281,Height=19} text=Truy cập nhanh các chức năng thường dùng.
+          TabPage name= visible=True bounds={X=4,Y=5,Width=1022,Height=580} text=Quản lý hồ sơ
+            TableLayoutPanel name= visible=True bounds={X=10,Y=10,Width=1002,Height=560} text=
+              TableLayoutPanel name= visible=True bounds={X=3,Y=3,Width=996,Height=98} text=
+                ModernCardPanel name= visible=True bounds={X=0,Y=4,Width=237,Height=100} text=
+                  Label name= visible=True bounds={X=14,Y=20,Width=48,Height=48} text=▰
+                  Label name= visible=True bounds={X=78,Y=16,Width=147,Height=34} text=0
+                  Label name= visible=True bounds={X=78,Y=52,Width=147,Height=24} text=Tổng số profile
+                ModernCardPanel name= visible=True bounds={X=249,Y=4,Width=237,Height=100} text=
+                  Label name= visible=True bounds={X=14,Y=20,Width=48,Height=48} text=▶
+                  Label name= visible=True bounds={X=78,Y=16,Width=147,Height=34} text=0
+                  Label name= visible=True bounds={X=78,Y=52,Width=147,Height=24} text=Đang chạy
+                ModernCardPanel name= visible=True bounds={X=498,Y=4,Width=237,Height=100} text=
+                  Label name= visible=True bounds={X=14,Y=20,Width=48,Height=48} text=Ⅱ
+                  Label name= visible=True bounds={X=78,Y=16,Width=147,Height=34} text=0
+                  Label name= visible=True bounds={X=78,Y=52,Width=147,Height=24} text=Tạm dừng
+                ModernCardPanel name= visible=True bounds={X=747,Y=4,Width=249,Height=100} text=
+                  Label name= visible=True bounds={X=14,Y=20,Width=48,Height=48} text=■
+                  Label name= visible=True bounds={X=78,Y=16,Width=159,Height=34} text=0
+                  Label name= visible=True bounds={X=78,Y=52,Width=159,Height=24} text=Đã dừng
+              TableLayoutPanel name= visible=True bounds={X=3,Y=107,Width=996,Height=106} text=
+                TextBox name= visible=True bounds={X=0,Y=6,Width=400,Height=36} text=
+                ComboBox name= visible=True bounds={X=410,Y=6,Width=236,Height=33} text=Tất cả trạng thái
+                ComboBox name= visible=True bounds={X=656,Y=6,Width=236,Height=33} text=Sắp xếp: Tên A-Z
+                Button name= visible=True bounds={X=948,Y=9,Width=44,Height=40} text=↻
+                Button name= visible=True bounds={X=496,Y=55,Width=156,Height=40} text=▶  Mở profile
+                Button name= visible=True bounds={X=660,Y=55,Width=156,Height=40} text=↑  Nhập từ Excel
+                Button name= visible=True bounds={X=824,Y=55,Width=168,Height=40} text=＋  Thêm hồ sơ
+              ModernCardPanel name= visible=True bounds={X=3,Y=219,Width=996,Height=296} text=
+                DataGridView name= visible=True bounds={X=14,Y=14,Width=968,Height=234} text=
+                  HScrollBar name= visible=False bounds={X=0,Y=129,Width=80,Height=21} text=
+                  VScrollBar name= visible=False bounds={X=219,Y=0,Width=21,Height=100} text=
+                Label name= visible=True bounds={X=14,Y=248,Width=968,Height=34} text=Chưa chọn profile
+              TableLayoutPanel name= visible=True bounds={X=0,Y=524,Width=1002,Height=36} text=
+                Label name= visible=True bounds={X=7,Y=0,Width=441,Height=36} text=ⓘ  Sẵn sàng
+                Label name= visible=True bounds={X=454,Y=0,Width=541,Height=36} text=Tổng: 0 profile  |  Đang chạy: 0  |  Tạm dừng: 0  |  Đã dừng: 0
+          TabPage name= visible=False bounds={X=4,Y=5,Width=1022,Height=580} text=+
+      TableLayoutPanel name= visible=True bounds={X=20,Y=20,Width=1030,Height=86} text=
+        Panel name= visible=True bounds={X=3,Y=3,Width=560,Height=80} text=
+          Label name= visible=True bounds={X=0,Y=6,Width=38,Height=38} text=▰
+          Label name= visible=True bounds={X=50,Y=5,Width=174,Height=35} text=Quản lý hồ sơ
+          Label name= visible=True bounds={X=51,Y=35,Width=367,Height=21} text=Quản lý profile, mở, thêm, sửa, xóa và nhập từ Excel.
+        TableLayoutPanel name= visible=True bounds={X=566,Y=0,Width=464,Height=86} text=
+          Button name= visible=True bounds={X=48,Y=9,Width=38,Height=66} text=⚙
+          Label name= visible=True bounds={X=90,Y=10,Width=102,Height=64} text=●  Hoạt động
+          Label name= visible=True bounds={X=200,Y=6,Width=88,Height=72} text=Phiên bản
+V13.8.0
+          Button name= visible=True bounds={X=300,Y=9,Width=160,Height=66} text=↻  Kiểm tra cập nhật
